@@ -49,7 +49,7 @@ class SinglePlayer(object):
         print "when you shoot to the bomb, will appear this symbol -#-"
         print "and you will win automatically"
         for o in self.board:
-            print " ".join(o)
+            print "|" + "|".join(o) + "|"
 
     def valid_row_and_column_given_by_user(self):
 
@@ -258,12 +258,23 @@ class SinglePlayer(object):
         print "\nship of four v"
         print row_ship_four_vertical, column_ship_four_vertical
 
-        ship = True
-        while ship == True:
+        
+        while True:
 
             guess_row, guess_column = self.valid_row_and_column_given_by_user()
 
-            if guess_row == row_bomb and guess_column == column_bomb:
+            
+
+            if self.board[row_ship_two_horizontal-1][column_ship_two_horizontal-1] == "*" and self.board[row_ship_two_horizontal-1][column_ship_two_horizontal] == "*"\
+                and self.board[row_ship_four_vertical-1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical][column_ship_four_vertical-1] == "*"\
+                and self.board[row_ship_four_vertical+1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical+2][column_ship_four_vertical-1] == "*":
+                    self.reset()
+                    self.print_board()
+                    print "\nYou win"
+                    self.clear_lists()
+                    self.press_enter()
+
+            elif guess_row == row_bomb and guess_column == column_bomb:
                 self.board[guess_row-1][guess_column-1] = "#"
                 self.reset()
                 self.print_board()
@@ -274,41 +285,24 @@ class SinglePlayer(object):
 
             else:
 
-                if self.board[row_ship_two_horizontal-1][column_ship_two_horizontal-1] == "*" and self.board[row_ship_two_horizontal-1][column_ship_two_horizontal] == "*"\
-                and self.board[row_ship_two_vertical-1][column_ship_two_vertical-1] == "*" and self.board[row_ship_two_vertical-1][column_ship_two_vertical] == "*"\
-                and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal-1] == "*" and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal] == "*"\
-                and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal+1] == "*" and self.board[row_ship_three_vertical-1][column_ship_three_vertical-1] == "*"\
-                and self.board[row_ship_three_vertical][column_ship_three_vertical-1] == "*" and self.board[row_ship_three_vertical+1][column_ship_three_vertical-1] == "*"\
-                and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal-1] == "*" and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal] == "*"\
-                and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal+1] == "*" and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal+2] == "*"\
-                and self.board[row_ship_four_vertical-1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical][column_ship_four_vertical-1] == "*"\
-                and self.board[row_ship_four_vertical+1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical+2][column_ship_four_vertical-1] == "*":
+
+                if (guess_row < 1 or guess_row > 10) or (guess_column < 1 or guess_column > 10):
+                    self.reset()
+                    print "It is not in the ocean\n\n"
                     self.print_board()
-                    print "You win"
-                    self.clear_lists()
-                    self.press_enter()
-                    ship = False
-
+                elif self.board[guess_row-1][guess_column-1] == "X":
+                    self.reset()
+                    print "Already You have written those coordinates\n\n"
+                    self.print_board()
+                elif "*" in self.board_to_check[guess_row-1][guess_column-1]:
+                    self.board[guess_row-1][guess_column-1] = "*"
+                    self.reset()
+                    self.print_board()
                 else:
-
-
-                    if (guess_row < 1 or guess_row > 10) or (guess_column < 1 or guess_column > 10):
-                        self.reset()
-                        print "It is not in the ocean\n\n"
-                        self.print_board()
-                    elif self.board[guess_row-1][guess_column-1] == "X":
-                        self.reset()
-                        print "Already You have written those coordinates\n\n"
-                        self.print_board()
-                    elif "*" in self.board_to_check[guess_row-1][guess_column-1]:
-                        self.board[guess_row-1][guess_column-1] = "*"
-                        self.reset()
-                        self.print_board()
-                    else:
-                        self.board[guess_row-1][guess_column-1] = "X"
-                        self.reset()
-                        print "Try again\n\n"
-                        self.print_board()
+                    self.board[guess_row-1][guess_column-1] = "X"
+                    self.reset()
+                    print "Try again\n\n"
+                    self.print_board()
 
     def menu_print(self):
         """This saves the instructions of the game"""
@@ -350,4 +344,3 @@ class SinglePlayer(object):
 
 MAIN = SinglePlayer()
 MAIN.menu()
-
