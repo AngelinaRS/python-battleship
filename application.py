@@ -224,13 +224,6 @@ class SinglePlayer(object):
                 column_ship_four_vertical = random.randint(1,7)
                 ship4 = True
 
-    def guess_ship_user(self, guess_row, guess_column, row_bomb, column_bomb):
-        self.generate_board_to_check()
-
-        if guess_row == row_bomb and guess_column == column_bomb:
-            self.board[guess_row-1][guess_column-1] = "#"
-            self.reset()
-            return True
 
     def ask_to_the_user(self):
         self.generate_board_to_check()
@@ -265,11 +258,10 @@ class SinglePlayer(object):
         print "\nship of four v"
         print row_ship_four_vertical, column_ship_four_vertical
 
-        while True:
+        ship = True
+        while ship == True:
 
             guess_row, guess_column = self.valid_row_and_column_given_by_user()
-
-            #guess_ship = self.guess_ship_user(guess_row, guess_column, row_bomb, column_bomb)
 
             if guess_row == row_bomb and guess_column == column_bomb:
                 self.board[guess_row-1][guess_column-1] = "#"
@@ -282,20 +274,21 @@ class SinglePlayer(object):
 
             else:
 
-                if guess_row == row_ship_two_horizontal and guess_column == column_ship_two_horizontal+1\
-                and guess_row == row_ship_two_vertical and guess_column == column_ship_two_vertical and guess_row == row_ship_two_vertical+1 and guess_column == column_ship_two_vertical\
-                and guess_row == row_ship_three_horizontal and guess_column == column_ship_three_horizontal and guess_row == row_ship_three_horizontal and guess_column == column_ship_three_horizontal+1\
-                and guess_row == row_ship_three_horizontal and guess_column == column_ship_three_horizontal+2 and guess_row == row_ship_three_vertical and guess_column == column_ship_three_vertical\
-                and guess_row == row_ship_three_vertical+1 and guess_column == column_ship_three_vertical and guess_row == row_ship_three_vertical+2 and guess_column == column_ship_three_vertical\
-                and guess_row == row_ship_four_horizontal and guess_column == column_ship_four_horizontal and guess_row == row_ship_four_horizontal and guess_column == column_ship_four_horizontal+1\
-                and guess_row == row_ship_four_horizontal and guess_column == column_ship_four_horizontal+2 and guess_row == row_ship_four_horizontal and guess_column == column_ship_four_horizontal+3\
-                and guess_row == row_ship_four_vertical and guess_column == column_ship_four_vertical and guess_row == row_ship_four_vertical+1 and guess_column == column_ship_four_vertical\
-                and guess_row == row_ship_four_vertical+2 and guess_column == column_ship_four_vertical and guess_row == row_ship_four_vertical+3 and guess_column == column_ship_four_vertical:
-                    self.reset()
+                if self.board[row_ship_two_horizontal-1][column_ship_two_horizontal-1] == "*" and self.board[row_ship_two_horizontal-1][column_ship_two_horizontal] == "*"\
+                and self.board[row_ship_two_vertical-1][column_ship_two_vertical-1] == "*" and self.board[row_ship_two_vertical-1][column_ship_two_vertical] == "*"\
+                and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal-1] == "*" and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal] == "*"\
+                and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal+1] == "*" and self.board[row_ship_three_vertical-1][column_ship_three_vertical-1] == "*"\
+                and self.board[row_ship_three_vertical][column_ship_three_vertical-1] == "*" and self.board[row_ship_three_vertical+1][column_ship_three_vertical-1] == "*"\
+                and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal-1] == "*" and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal] == "*"\
+                and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal+1] == "*" and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal+2] == "*"\
+                and self.board[row_ship_four_vertical-1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical][column_ship_four_vertical-1] == "*"\
+                and self.board[row_ship_four_vertical+1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical+2][column_ship_four_vertical-1] == "*":
                     self.print_board()
                     print "You win"
                     self.clear_lists()
                     self.press_enter()
+                    ship = False
+
                 else:
 
 
