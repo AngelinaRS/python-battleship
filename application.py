@@ -265,16 +265,8 @@ class SinglePlayer(object):
 
             
 
-            if self.board[row_ship_two_horizontal-1][column_ship_two_horizontal-1] == "*" and self.board[row_ship_two_horizontal-1][column_ship_two_horizontal] == "*"\
-                and self.board[row_ship_four_vertical-1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical][column_ship_four_vertical-1] == "*"\
-                and self.board[row_ship_four_vertical+1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical+2][column_ship_four_vertical-1] == "*":
-                    self.reset()
-                    self.print_board()
-                    print "\nYou win"
-                    self.clear_lists()
-                    self.press_enter()
-
-            elif guess_row == row_bomb and guess_column == column_bomb:
+        
+            if guess_row == row_bomb and guess_column == column_bomb:
                 self.board[guess_row-1][guess_column-1] = "#"
                 self.reset()
                 self.print_board()
@@ -303,6 +295,21 @@ class SinglePlayer(object):
                     self.reset()
                     print "Try again\n\n"
                     self.print_board()
+
+            if self.board[row_ship_two_horizontal-1][column_ship_two_horizontal-1] == "*" and self.board[row_ship_two_horizontal-1][column_ship_two_horizontal] == "*"\
+            and self.board[row_ship_two_vertical-1][column_ship_two_vertical-1] == "*" and self.board[row_ship_two_vertical][column_ship_two_vertical-1] == "*"\
+            and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal-1] == "*" and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal] == "*"\
+            and self.board[row_ship_three_horizontal-1][column_ship_three_horizontal+1] == "*" and self.board[row_ship_three_vertical-1][column_ship_three_vertical-1] == "*"\
+            and self.board[row_ship_three_vertical][column_ship_three_vertical-1] == "*" and self.board[row_ship_three_vertical+1][column_ship_three_vertical-1] == "*"\
+            and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal-1] == "*" and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal] == "*"\
+            and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal+1] == "*" and self.board[row_ship_four_horizontal-1][column_ship_four_horizontal+2] == "*"\
+            and self.board[row_ship_four_vertical-1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical][column_ship_four_vertical-1] == "*"\
+            and self.board[row_ship_four_vertical+1][column_ship_four_vertical-1] == "*" and self.board[row_ship_four_vertical+2][column_ship_four_vertical-1] == "*":
+                self.reset()
+                self.print_board()
+                print "\nYou win"
+                self.clear_lists()
+                self.press_enter()
 
     def menu_print(self):
         """This saves the instructions of the game"""
